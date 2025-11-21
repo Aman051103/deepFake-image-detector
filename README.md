@@ -9,6 +9,7 @@ A deep learning-based application for detecting deepfake images created with mod
 - [Dataset](#dataset)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Docker Installation](#docker-installation)
 - [Project Structure](#project-structure)
 - [Requirements](#requirements)
 - [How It Works](#how-it-works)
@@ -53,7 +54,7 @@ All images are categorized into two classes: Real and Fake (Deepfake).
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/deepFake-image-detector.git
+   git clone https://github.com/Aman051103/deepFake-image-detector.git
    cd deepFake-image-detector
    ```
 
@@ -103,6 +104,83 @@ Upload Image → Click Predict → View Results
               "95.23% chances of being Real"
 ```
 
+## 🐳 Docker Installation
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/get-started) installed on your system
+- Docker Desktop (recommended for Windows/Mac)
+
+### Building and Running with Docker
+
+1. **Build the Docker image**
+   ```bash
+   docker build -t deepfake-detector .
+   ```
+
+2. **Run the container**
+   ```bash
+   docker run -p 8501:8501 deepfake-detector
+   ```
+
+3. **Access the application**
+   - Open your web browser and navigate to `http://localhost:8501`
+   - The Streamlit app will be running inside the Docker container
+
+### Docker Commands
+
+**Run in detached mode (background)**
+```bash
+docker run -d -p 8501:8501 --name deepfake-app deepfake-detector
+```
+
+**Stop the container**
+```bash
+docker stop deepfake-app
+```
+
+**Start the container again**
+```bash
+docker start deepfake-app
+```
+
+**View logs**
+```bash
+docker logs deepfake-app
+```
+
+**Remove the container**
+```bash
+docker rm deepfake-app
+```
+
+**Remove the image**
+```bash
+docker rmi deepfake-detector
+```
+
+### Docker Compose (Optional)
+
+For easier management, you can create a `docker-compose.yml` file:
+
+```yaml
+version: '3.8'
+
+services:
+  deepfake-detector:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./deepfakeImg_detector_1.keras:/app/deepfakeImg_detector_1.keras
+    restart: unless-stopped
+```
+
+Then run:
+```bash
+docker-compose up -d
+```
+
 ## 📁 Project Structure
 
 ```
@@ -113,6 +191,8 @@ deepFake-image-detector/
 ├── deepfakeImg_detector_1.keras     # Pre-trained model file
 ├── deepfakeImg_detector.keras       # Alternative model file
 ├── requirements.txt                 # Python dependencies
+├── Dockerfile                       # Docker configuration
+├── .dockerignore                    # Docker ignore file
 ├── LICENSE                          # Apache License 2.0
 └── README.md                        # This file
 ```
@@ -181,25 +261,8 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📧 Contact
 
-For questions, issues, or suggestions, please open an issue on GitHub.
+For questions, issues, or suggestions, please open an issue on [GitHub](https://github.com/Aman051103/deepFake-image-detector/issues).
 
 ---
 
 **Disclaimer**: This tool is provided for educational and research purposes. Deepfake technology is rapidly evolving, and no detection system can guarantee 100% accuracy. Use responsibly and verify critical information through multiple sources.
-```
-
-## Improvements
-
-1. Structure: table of contents and clear sections
-2. Features: highlights of the app
-3. Model details: architecture description
-4. Dataset: source and statistics
-5. Installation: step-by-step with virtual env
-6. Usage: instructions for running the app
-7. Project structure: file overview
-8. How it works: workflow explanation
-9. Future improvements: roadmap
-10. Contributing: guidelines
-11. Important notes: disclaimers
-
-I can customize any section or add more detail. Switch to agent mode to apply these changes automatically.
